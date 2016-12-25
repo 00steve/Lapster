@@ -30,7 +30,8 @@ void DashboardLayout::Setup(){
 
 
 DashboardLayout::DashboardLayout(int layoutID) :
-        layoutID(layoutID){
+        layoutID(layoutID),
+        editWidgetIndex(-1){
     Setup();
     //stuff in the layout
 }
@@ -43,7 +44,19 @@ DashboardLayout::~DashboardLayout(){
 }
 
 
-
+void DashboardLayout::Update(){
+    if(Button::CheckForScreenHolding()){
+        Serial.println("check for button");
+        int i = widgetCount;
+        while(i --> 0){
+            if(widget[i]->Holding()){
+                editWidgetIndex = i;
+                Serial.println("edit widget");
+                return;
+            }
+        }
+    }
+}
 
 
 void DashboardLayout::Redraw(){
@@ -57,4 +70,14 @@ void DashboardLayout::Redraw(){
 void DashboardLayout::Draw(){
 
 
+}
+
+bool DashboardLayout::ShouldEditWidget(){
+    return editWidgetIndex > -1;
+}
+
+DashboardWidget* DashboardLayout::EditWidget(){
+    int ind = editWidgetIndex;
+    editWidgetIndex = -1;
+    return widget[ind];
 }

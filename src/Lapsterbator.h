@@ -31,6 +31,7 @@
 #include <GyrometerSettings.h>
 
 #include <Dashboard.h>
+#include <InputSelectMenu.h>
 
 
 class Lapsterbator{

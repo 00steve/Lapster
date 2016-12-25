@@ -28,6 +28,6 @@ void DashboardWidget::Redraw(){
     tft.drawRect(topLeft.x,topLeft.y,bottomRight.x-topLeft.x,bottomRight.y-topLeft.y,0xFFFF);
     tft.setFont(LiberationSans_12);
     Int2 center = (bottomRight + topLeft) /2;
-    tft.setCursor(center.x,center.y);
-    tft.print("Press to add meter");
+    tft.setCursor(center.x-85,center.y-6);
+    tft.print("Press for context menu");
 }

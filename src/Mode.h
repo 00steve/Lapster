@@ -28,7 +28,8 @@ mode by the main loop.*/
 #define MODE_ACCELEROMETER_SETTINGS 230
 #define MODE_GYROMETER_SETTINGS 240
 #define MODE_DASHBOARD 300
-
+#define MODE_WIDGET_SETTINGS 310
+#define MODE_INPUT_SELECT_MENU 400
 
 #include <Button.h>
 #include <Drawable.h>
@@ -52,7 +53,6 @@ public:
         finished(false),
         nextState(NULL)
     {
-
     }
 
     virtual ~Mode(){

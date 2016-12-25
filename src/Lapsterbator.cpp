@@ -120,6 +120,7 @@ void Lapsterbator::Update(){
             case MODE_DASHBOARD:
                 current_process = new Dashboard();
                 break;
+
             /*case MODE_INPUTS:
                 current_process = new InputsMenu();
                 break;

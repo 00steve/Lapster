@@ -13,6 +13,10 @@ bool Button::waitForDepress = false;
 Int2 Button::dragStartPoint = Int2(0,0);
 Int2 Button::dragEndPoint = Int2(0,0);
 
+Timer Button::timer = Timer();
+long Button::pressStartTime = 0;
+long Button::pressDuration = 0;
+
 int Button::backgroundColor = 0x4224;
 int Button::activeBackgroundColor = 0xFFFF;
 int Button::disabledBackgroundColor = 0x3113;
@@ -28,14 +32,21 @@ Int2 Button::touchScreenBottomRight = Int2(0,0);
 
 void Button::Update(){
     pressing = Touch::Pressing();
+    if(pressing && !waitForDepress){
+        pressStartTime = timer.Milliseconds();
+    }
     pressedScreen = (!pressing && waitForDepress);
     if(pressedScreen){
+        pressDuration = 0;
         //Serial.println("[pressed screen]");
     }
     /*stays true while screen is being pressed and it itself
     is also true. Once it is no longer true, it stays untrue
     until the pressing screen boolean is true*/
     waitForDepress = (pressing && waitForDepress);
+    if(waitForDepress){
+        pressDuration = timer.Milliseconds() - pressStartTime;
+    }
     pressingScreen = (pressing && !waitForDepress);
 
     if(pressingScreen){
@@ -85,8 +96,26 @@ bool Button::Pressing(){
         touchPoint.y <= bottomRight.y;
 }
 
+bool Button::Holding(){
+    bool holding = waitForDepress && pressDuration > 1000 &&
+        !disabled &&
+        touchPoint.x >= topLeft.x &&
+        touchPoint.x <= bottomRight.x &&
+        touchPoint.y >= topLeft.y &&
+        touchPoint.y <= bottomRight.y;
+    //go right to not pressed screen so holding, having another button
+    //get displayed underneath the holding one (that only needs to be
+    //pressed
+    return holding;
+}
+
 bool Button::Pressed(){
-    return pressedScreen;
+    return pressedScreen && pressDuration <= 1000 &&
+        !disabled &&
+        touchPoint.x >= topLeft.x &&
+        touchPoint.x <= bottomRight.x &&
+        touchPoint.y >= topLeft.y &&
+        touchPoint.y <= bottomRight.y;
 }
 
 bool Button::Disable(){
@@ -146,6 +175,11 @@ bool Button::CheckForScreenDrag(){
         //Serial.println("stop dragging screen");
     }
     return dragging || oldDragging;
+}
+
+bool Button::CheckForScreenHolding(){
+    Update();
+    return waitForDepress && pressDuration > 1000;
 }
 
 bool Button::PressingScreen(){

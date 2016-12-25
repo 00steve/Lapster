@@ -4,7 +4,7 @@
 #include <Int2.h>
 #include <Drawable.h>
 #include <Touch.h>
-
+#include <Timer.h>
 
 
 class Button : public Drawable{
@@ -29,6 +29,10 @@ protected:
     static Int2 dragStartPoint;
     static Int2 dragEndPoint;
 
+    static Timer timer;
+    static long pressStartTime;
+    static long pressDuration;
+
     static int backgroundColor;
     static int activeBackgroundColor;
     static int disabledBackgroundColor;
@@ -37,7 +41,7 @@ protected:
     static int borderRadius;
     static int textSize;
 
-
+    /*used to update the status of the button screen*/
     static void Update();
 
 
@@ -52,6 +56,7 @@ public:
 
     virtual bool Pressing();
     virtual bool Pressed();
+    virtual bool Holding();
 
     virtual bool Disable();
     virtual bool Enable();
@@ -72,6 +77,7 @@ public:
     static bool CheckForScreenPress();
     static bool CheckForScreenPressed();
     static bool CheckForScreenDrag();
+    static bool CheckForScreenHolding();
 
     static bool PressingScreen();
     static bool HoldingScreen();

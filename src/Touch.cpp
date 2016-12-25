@@ -17,7 +17,6 @@ void Touch::SetTilt(Double3 tilt){
 }
 
 void Touch::Setup(){
-
 }
 
 void Touch::readPressureFromScreen(){
@@ -37,9 +36,6 @@ void Touch::readPressureFromScreen(){
 
     int z1 = analogRead(touchXMPin);
     int z2 = analogRead(touchYPPin);
-
-
-
 
     if (rxplate != 0) {
     // now read the x
@@ -118,7 +114,6 @@ float Touch::Pressure(){
 }
 
 Int2 Touch::Position(){
-
     return position;
 }
 

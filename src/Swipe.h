@@ -6,26 +6,29 @@
 
 #define SWIPE_LEFT 0
 #define SWIPE_RIGHT 1
-#define SWIPE_TOP 2
-#define SWIPE_BOTTOM 3
+#define SWIPE_UP 2
+#define SWIPE_DOWN 3
+#define SWIPE_NONE 4
 
 
 
 
 class Swipe{
 private:
-    int direction;
-    int state;
+    static int direction;
+    static int state;
 
     static Int2 screenSize;
-    static Int2 touchPoint;
+    static Int2 startTouchPoint;
+    static Int2 endTouchPoint;
     static bool pressingScreen;
     static bool waitForDepress;
 
 public:
-    Swipe(int direction);
+    static bool Swiped();
 
-    bool Swiped();
+    /*use declared directions at the top of this header file.*/
+    static int LastDirection();
 
 };
 

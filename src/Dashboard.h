@@ -6,15 +6,12 @@
 #include <Button.h>
 #include <Subsystem.h>
 #include <DashboardLayout.h>
-#include <Slider.h>
+#include <Swipe.h>
 
 class Dashboard: public Mode{
 private:
 
-    Slider backButton = Slider(Int2(0,0),Int2(480,320),100);
-
     DashboardLayout *dashboardLayout = NULL;
-
 
     void Setup();
 
