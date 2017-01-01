@@ -37,12 +37,18 @@ bool Lapsterbator::Setup(){
 
     }
 
+    unsigned short x = 62000;
+    char* b = reinterpret_cast<char*>(&x);
+    unsigned short* s = reinterpret_cast<unsigned short*>(b);
+    Serial.println(s[0]);
+
+
 
     if(!current_process){
         current_process = new MainMenu();
     }
 
-    process_stack = new Mode*[3];
+    process_stack = new Mode*[5];
     showingAlert = false;
     return true;
 }

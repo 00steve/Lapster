@@ -68,6 +68,7 @@ public:
     double* MaximumWarningRef();
     String* LabelRef();
 
+    static void RestoreInputSettings(int startingEepromOffset);
 };
 
 

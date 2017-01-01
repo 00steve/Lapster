@@ -18,10 +18,6 @@ unsigned short DashboardWidget::GaugeType(unsigned short newGaugeType){
     if(gauge){
         delete gauge;
     }
-    Serial.println(TopLeft().x);
-    Serial.println(TopLeft().y);
-    Serial.println(BottomRight().x);
-    Serial.println(BottomRight().y);
     switch(newGaugeType){
     case GAUGE_TYPE_EMPTY:
         gauge = new EmptyGauge(TopLeft(),BottomRight(),inputType);

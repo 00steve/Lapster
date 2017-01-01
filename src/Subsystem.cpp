@@ -145,6 +145,8 @@ bool Subsystem::NewAlert(){
 
 
 void Subsystem::FactoryReset(){
+    Eprom::PopulateDefaults();
+    AnalogInput::RestoreInputSettings(DATA_LOG_EXPANSION1_MEM_BLOCK);
 
 }
 

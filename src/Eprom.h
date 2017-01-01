@@ -34,10 +34,10 @@ label,
 flags   :offset=0   : char  : store various single bits of info about the input
                         bit 0 : enabled         : if the data source is being used (value of 0 or 1)
                         bit 1 : warning enabled : if the warning is enabled for the input
-v_min   :offset=1   : short : minimum voltage that source will provide
+v_min   :offset=1   : ushort: minimum voltage that source will provide
                         Stored as 65535, each increment represents .0001 volts
                         as the min, a range of 0.0000 - 6.5535 volts at a scale of 4.
-v_max   :offset=3   : short : maximum voltage that source will provide
+v_max   :offset=3   : ushort: maximum voltage that source will provide
                         Stored as 65535, each increment represents .0001 volts
                         as the min, a range of 0.0000 - 6.5535 volts at a scale of 4.
 m_max   :offset=5   : float : what number of units the v_min maps to logged and displayed
@@ -74,26 +74,26 @@ class Eprom {
 private:
 
 
-    /*this should only be called if the settings are being reset
-    or there are no settings yet saved to the eeprom*/
-    static void PopulateDefaults();
+
 
 public:
 
     static void Setup();
 
-    static void WriteChar(int address,char value);
-    static void WriteShort(int address,short value);
-    static void WriteString(int address,String value);
+    static void WriteChar(int &address,char value);
+    static void WriteDouble(int &address,double value);
+    static void WriteFloat(int &address,float value);
+    static void WriteShort(int &address,short value);
+    static void WriteString(int &address,String value);
+    static void WriteString(int &address,String value,unsigned int maxLength);
+    static void WriteUShort(int &address,unsigned short value);
 
-    static void WriteString(int address,String value,unsigned int maxLength);
-
-
-    static char ReadChar(int address);
-    static short ReadShort(int address);
-
-    static String ReadString(int address,int len);
-
+    static char ReadChar(int &address);
+    static double ReadDouble(int &address);
+    static float ReadFloat(int &address);
+    static short ReadShort(int &address);
+    static String ReadString(int &address,int len);
+    static unsigned short ReadUShort(int &address);
 
     static bool GetBit(unsigned char value, int position);
     static void SetBit(unsigned char &container,int offset,bool value);
@@ -101,6 +101,10 @@ public:
     static bool GetBit(unsigned long container, int position);
     static void SetBit(unsigned long int &container,int offset,bool value);
 
+
+    /*this should only be called if the settings are being reset
+    or there are no settings yet saved to the eeprom*/
+    static void PopulateDefaults();
 
 };
 

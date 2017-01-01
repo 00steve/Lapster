@@ -5,28 +5,41 @@
     //this should only be called if the settings are being reset
     //or there are no settings yet saved to the Eprom
 void Eprom::PopulateDefaults(){
-    WriteShort(ACCELEROMETER_X_MIN_SHORT,395);
-    WriteShort(ACCELEROMETER_X_MAX_SHORT,624);
-    WriteShort(ACCELEROMETER_Y_MIN_SHORT,390);
-    WriteShort(ACCELEROMETER_Y_MAX_SHORT,621);
-    WriteShort(ACCELEROMETER_Z_MIN_SHORT,403);
-    WriteShort(ACCELEROMETER_Z_MAX_SHORT,610);
+    int cursor = ACCELEROMETER_X_MIN_SHORT;
+    WriteShort(cursor,395);
+    cursor = ACCELEROMETER_X_MAX_SHORT;
+    WriteShort(cursor,624);
+    cursor = ACCELEROMETER_Y_MIN_SHORT;
+    WriteShort(cursor,390);
+    cursor = ACCELEROMETER_Y_MAX_SHORT;
+    WriteShort(cursor,621);
+    cursor = ACCELEROMETER_Z_MIN_SHORT;
+    WriteShort(cursor,403);
+    cursor = ACCELEROMETER_Z_MAX_SHORT;
+    WriteShort(cursor,610);
     //define the scale of the g-meter.Since it is stored
     //as a char 0-255, each step represents 0.01 Gs, so we
     //can handle of scale of .01 - 2.56Gs. Default is 99
     //which translates to 1.00Gs
-    WriteShort(ACCELEROMETER_SCALE,99);
-    WriteShort(ACCELEROMETER_SMOOTHING,10);
+    cursor = ACCELEROMETER_SCALE;
+    WriteShort(cursor,99);
+    cursor = ACCELEROMETER_SMOOTHING;
+    WriteShort(cursor,10);
 
-    WriteShort(TOUCHSCREEN_X_MIN_SHORT,86);
-    WriteShort(TOUCHSCREEN_X_MAX_SHORT,929);
-    WriteShort(TOUCHSCREEN_Y_MIN_SHORT,129);
-    WriteShort(TOUCHSCREEN_Y_MAX_SHORT,857);
+    cursor = TOUCHSCREEN_X_MIN_SHORT;
+    WriteShort(cursor,86);
+    cursor = TOUCHSCREEN_X_MAX_SHORT;
+    WriteShort(cursor,929);
+    cursor = TOUCHSCREEN_Y_MIN_SHORT;
+    WriteShort(cursor,129);
+    cursor = TOUCHSCREEN_Y_MAX_SHORT;
+    WriteShort(cursor,857);
 
-    WriteChar(DATA_LOG_DEFAULT_SENSOR_CHAR,255);
-    WriteShort(DATA_LOG_EXPANSION_SHORT,0);
-    WriteShort(DATA_LOG_EXPANSION_SHORT+1,0);
-
+    cursor = DATA_LOG_DEFAULT_SENSOR_CHAR;
+    WriteChar(cursor,255);
+    cursor = DATA_LOG_EXPANSION_SHORT;
+    WriteShort(cursor,0);
+    WriteShort(cursor,0);
 
 
 }
@@ -36,9 +49,10 @@ void Eprom::Setup(){
     //check if the first bit of the Eprom has the default value
     //of 255. If it does, set it to anything other than 255 and run
     //the populateDefaults function to set all of the initial settings.
-    if(EEPROM.read(EEPROM_POPULATED_CHAR)!=0){
+    int cursor = EEPROM_POPULATED_CHAR;
+    if(EEPROM.read(cursor)!=0){
         Serial.print("- Write default settings values to Eprom\n");
-        WriteChar(EEPROM_POPULATED_CHAR,0);
+        WriteChar(--cursor,0);
         PopulateDefaults();
     } else {
         Serial.print(" - Eprom has already been programmed\n");
@@ -47,14 +61,37 @@ void Eprom::Setup(){
     }
 }
 
-void Eprom::WriteChar(int address,char value){
+void Eprom::WriteChar(int &address,char value){
     EEPROM.write(address,value);
 }
-void Eprom::WriteShort(int address,short value){
-    EEPROM.write(address,value >> 4);
-    EEPROM.write(address+1,value &0x0F);
+
+void Eprom::WriteDouble(int &address,double value){
+    char* b = reinterpret_cast<char*>(&value);
+    EEPROM.write(address++,b[0]);
+    EEPROM.write(address++,b[1]);
+    EEPROM.write(address++,b[2]);
+    EEPROM.write(address++,b[3]);
+    EEPROM.write(address++,b[4]);
+    EEPROM.write(address++,b[5]);
+    EEPROM.write(address++,b[6]);
+    EEPROM.write(address++,b[7]);
+    delete b;
 }
-void Eprom::WriteString(int address,String value){
+
+void Eprom::WriteFloat(int &address,float value){
+    char* b = reinterpret_cast<char*>(&value);
+    EEPROM.write(address++,b[0]);
+    EEPROM.write(address++,b[1]);
+    EEPROM.write(address++,b[2]);
+    EEPROM.write(address++,b[3]);
+    delete b;
+}
+
+void Eprom::WriteShort(int &address,short value){
+    EEPROM.write(address++,value >> 4);
+    EEPROM.write(address++,value &0x0F);
+}
+void Eprom::WriteString(int &address,String value){
     int len = value.length()+1;
     char cbuff[len];//Finds length of string to make a buffer
     value.toCharArray(cbuff,len);//Converts String into character array
@@ -66,7 +103,7 @@ void Eprom::WriteString(int address,String value){
     Serial.println("----------------");
 }
 
-void Eprom::WriteString(int address,String value,unsigned int maxLength){
+void Eprom::WriteString(int &address,String value,unsigned int maxLength){
     unsigned int len;
     if(value.length() > maxLength){
         len = maxLength;
@@ -75,7 +112,6 @@ void Eprom::WriteString(int address,String value,unsigned int maxLength){
     }
     char cbuff[len+1];//Finds length of string to make a buffer
     value.toCharArray(cbuff,len+1);//Converts String into character array
-
         Serial.println(value);
     Serial.println("keyboard return ");
     for(unsigned int i=0;i<value.length();i++){
@@ -92,7 +128,7 @@ void Eprom::WriteString(int address,String value,unsigned int maxLength){
         Serial.println(cbuff[i]);
     }
     if(len < maxLength){
-        EEPROM.write(address,cbuff[len]);
+        EEPROM.write(address++,cbuff[len]);
         Serial.print(len);
         Serial.println(" : 0");
     }
@@ -100,15 +136,46 @@ void Eprom::WriteString(int address,String value,unsigned int maxLength){
 }
 
 
-char Eprom::ReadChar(int address){
-    return EEPROM.read(address);
-}
-short Eprom::ReadShort(int address){
-    return (EEPROM.read(address) << 4) | (EEPROM.read(address+1) & 0xFF);
+void Eprom::WriteUShort(int &address,unsigned short value){
+    char* b = reinterpret_cast<char*>(&value);
+    b[0] = EEPROM.read(address++);
+    b[1] = EEPROM.read(address++);
+    delete b;
 }
 
 
-String Eprom::ReadString(int address,int len){
+char Eprom::ReadChar(int &address){
+    return EEPROM.read(address++);
+}
+double Eprom::ReadDouble(int &address){
+    char b[4];
+    b[0] = EEPROM.read(address++);
+    b[1] = EEPROM.read(address++);
+    b[2] = EEPROM.read(address++);
+    b[3] = EEPROM.read(address++);
+    b[4] = EEPROM.read(address++);
+    b[5] = EEPROM.read(address++);
+    b[6] = EEPROM.read(address++);
+    b[7] = EEPROM.read(address++);
+    double* d = reinterpret_cast<double*>(b);
+    return d[0];
+}
+float Eprom::ReadFloat(int &address){
+    char b[4];
+    b[0] = EEPROM.read(address++);
+    b[1] = EEPROM.read(address++);
+    b[2] = EEPROM.read(address++);
+    b[3] = EEPROM.read(address++);
+    float* f = reinterpret_cast<float*>(b);
+    return f[0];
+}
+short Eprom::ReadShort(int &address){
+    address += 2;
+    return (EEPROM.read(address-2) << 4) | (EEPROM.read(address-1) & 0xFF);
+}
+
+
+String Eprom::ReadString(int &address,int len){
     String stemp="";
     char c;
     for(int i=0;i<len;i++)
@@ -118,7 +185,14 @@ String Eprom::ReadString(int address,int len){
       stemp.concat(c);//combines characters into a String
     }
     return stemp;
+}
 
+unsigned short Eprom::ReadUShort(int &address){
+    char b[4];
+    b[0] = EEPROM.read(address++);
+    b[1] = EEPROM.read(address++);
+    unsigned short* s = reinterpret_cast<unsigned short*>(b);
+    return s[0];
 }
 
 

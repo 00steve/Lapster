@@ -90,15 +90,33 @@ bool AnalogInput::StoreSettings(){
     Serial.println(enabled);
     int offset = eepromOffset;
     Eprom::WriteChar(offset,enabled); offset ++;
+    Eprom::WriteShort(offset,0); offset+= 2;
+    Eprom::WriteShort(offset,3.3); offset+= 2;
+    Eprom::WriteFloat(offset,0); offset+= 4;
+    Eprom::WriteFloat(offset,3.3); offset+= 4;
+
     Eprom::WriteString(offset,label); offset += 16;
     return true;
 }
 bool AnalogInput::StoreSettingDefaults(int startingEepromOffset){
     Serial.println("store analog input settings");
     Serial.print("enabled : false");
-    int offset = eepromOffset;
-    Eprom::WriteChar(offset,(char)0); offset ++;
-    Eprom::WriteString(offset,""); offset += 16;
+    int offset = startingEepromOffset;
+    Serial.print("reset input ");
+    Serial.print(startingEepromOffset-1023/64);
+    Serial.print(" to factory settings\n");
+    //build first char that stores what is enabled
+    Serial.print("write to "); Serial.println(offset);
+    Eprom::WriteChar(offset,(char)0);
+    Serial.print("write to "); Serial.println(offset);
+    Eprom::WriteUShort(offset,(unsigned short)0);
+    Serial.print("write to "); Serial.println(offset);
+    Eprom::WriteUShort(offset,(unsigned short)33000);
+    Serial.print("write to "); Serial.println(offset);
+    //Eprom::Write
+
+    Eprom::WriteString(offset,"");
+
     return true;
     //Eprom::Write
 }
@@ -170,3 +188,23 @@ String* AnalogInput::LabelRef(){
     return &label;
 }
 
+
+void AnalogInput::RestoreInputSettings(int startingEepromOffset){
+    Serial.println("store analog input settings");
+    Serial.print("enabled : false");
+    int offset = startingEepromOffset;
+    Serial.print("reset input ");
+    Serial.print(startingEepromOffset-1023/64);
+    Serial.print(" to factory settings\n");
+    //build first char that stores what is enabled
+    Serial.print("write to "); Serial.println(offset);
+    Eprom::WriteChar(offset,(char)0);
+    Serial.print("write to "); Serial.println(offset);
+    Eprom::WriteUShort(offset,(unsigned short)0);
+    Serial.print("write to "); Serial.println(offset);
+    Eprom::WriteUShort(offset,(unsigned short)33000);
+    Serial.print("write to "); Serial.println(offset);
+    //Eprom::Write
+
+    Eprom::WriteString(offset,"");
+}
