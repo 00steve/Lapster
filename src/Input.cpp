@@ -7,6 +7,11 @@ short Input::alertCount = 0;
 short Input::maxAnalogVoltageInt = pow(2,ANALOG_INPUT_BITS);
 
 
+
+String Input::Units(){ return ""; }
+String* Input::UnitsRef(){ return NULL; }
+
+
 bool Input::Alert(AlertInfo* info){
     if(alertCount > 23) return false;
     alerts[alertCount++] = info;

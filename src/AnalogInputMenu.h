@@ -25,6 +25,8 @@ private:
     NumberSpinner* vInMaxSpinner;
     NumberSpinner* mapMinSpinner;
     NumberSpinner* mapMaxSpinner;
+    NumberSpinner* wrnMinSpinner;
+    NumberSpinner* wrnMaxSpinner;
 
     Timer timer;
     double newVoltage;

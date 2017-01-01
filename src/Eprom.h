@@ -31,28 +31,31 @@ life of 100,000 write/erase cycles.*/
 /*amount of data to store about each input type, like the name,
 warning min, max, warning enabled, data type, input enabled, unit
 label,
-enabled     : char  : if the data source is being used
-v_min       : short : minimum voltage that source will provide
+flags   :offset=0   : char  : store various single bits of info about the input
+                        bit 0 : enabled         : if the data source is being used (value of 0 or 1)
+                        bit 1 : warning enabled : if the warning is enabled for the input
+v_min   :offset=1   : short : minimum voltage that source will provide
                         Stored as 65535, each increment represents .0001 volts
                         as the min, a range of 0.0000 - 6.5535 volts at a scale of 4.
-v_max       : short : maximum voltage that source will provide
+v_max   :offset=3   : short : maximum voltage that source will provide
                         Stored as 65535, each increment represents .0001 volts
                         as the min, a range of 0.0000 - 6.5535 volts at a scale of 4.
-m_max       : float : what number of units the v_min maps to logged and displayed
+m_max   :offset=5   : float : what number of units the v_min maps to logged and displayed
                         Stored as a float so pretty much any value can be used.
-m_min       : float : what number of units the v_max maps to when logged and displayed
+m_min   :offset=9   : float : what number of units the v_max maps to when logged and displayed
                         Stored as a float so pretty much any value can be used.
-w_min       : char  : minimum number of units allowed before user is warned (to turn off warning, set to min)
+w_min   :offset=13  : ushort : minimum number of units allowed before user is warned (to turn off warning, set to min)
                         (w_min is stored as a scale from 0..1 of v_min and v_max, displayed to user as the unit equivalent,
                         thus will change if the v_min/max or m_min/max changes).
                         Stored as char, which is 0-255, only using 0-250 for nice round numbers when converting to a
                         percentage
-w_max       : char  : maximum number of units allowed before user is warned (to turn off warning, set to max)
+w_max   :offset=14  : ushort : maximum number of units allowed before user is warned (to turn off warning, set to max)
                         (w_max is stored as a scale from 0..1 of v_min and v_max, displayed to user as the unit equivalent,
                         thus will change if the v_min/max or m_min/max changes)
                         Stored as char, which is 0-255, only using 0-250 for nice round numbers when converting to a
                         percentage
-
+units   :offset=15  : 6bytes: store the units that should be displayed to the user (PSI, LB/FT, RPM, Gs, etc.)
+label   :offset=21  : 8bytes: store the name of the input
 */
 
 
@@ -60,6 +63,11 @@ w_max       : char  : maximum number of units allowed before user is warned (to 
 #define DATA_LOG_EXPANSION1_MEM_BLOCK 1023
 #define DATA_LOG_EXPANSION2_MEM_BLOCK 1087
 #define DATA_LOG_EXPANSION3_MEM_BLOCK 1151
+#define DATA_LOG_EXPANSION4_MEM_BLOCK 1215
+#define DATA_LOG_EXPANSION5_MEM_BLOCK 1279
+#define DATA_LOG_EXPANSION6_MEM_BLOCK 1343
+#define DATA_LOG_EXPANSION7_MEM_BLOCK 1407
+#define DATA_LOG_EXPANSION8_MEM_BLOCK 1471
 //next is 201
 
 class Eprom {

@@ -3,7 +3,6 @@
 
 
 void CompassSettings::Setup(){
-    backButton = new Button(Int2(50,0),Int2(160,80),"Back");
     initVec = Compass::DirectionVector();
     ftime = Subsystem::timer.Milliseconds();
 }
@@ -18,7 +17,7 @@ CompassSettings::CompassSettings(){
 void CompassSettings::Update(){
 
     if(Button::CheckForScreenPress()){
-        if(backButton->Pressing()){
+        if(backButton.Pressing()){
             Set(MODE_SETTINGS);
         }
     }
@@ -40,7 +39,7 @@ void CompassSettings::Redraw(){
     Button::SetTftSettings();
 
 
-    backButton->Draw();
+    backButton.Draw();
 }
 
 void CompassSettings::Draw(){

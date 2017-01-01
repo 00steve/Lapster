@@ -7,13 +7,14 @@
 #include <AlertInfo.h>
 #include <Eprom.h>
 #include <limits>
-
+#include <MathUtils.h>
 
 class AnalogInput : public Input{
 private:
 
     int pin;
     double voltage;
+    double value;
 
     AlertInfo alertInfo;
     bool currentAlert;
@@ -47,17 +48,24 @@ public:
     virtual bool StoreSettingDefaults(int startingEepromOffset);
     virtual bool LoadSettings(int startingEepromOffset);
 
+    double Value();
+
     double Voltage();
     double MinimumVoltage();
     double MaximumVoltage();
     double MinimumMap();
     double MaximumMap();
+    double MinimumWarning();
+    double MaximumWarning();
 
-
+    double* ValueRef();
+    double* VoltageRef();
     double* MinimumVoltageRef();
     double* MaximumVoltageRef();
     double* MinimumMapRef();
     double* MaximumMapRef();
+    double* MinimumWarningRef();
+    double* MaximumWarningRef();
     String* LabelRef();
 
 };

@@ -12,6 +12,10 @@ SettingsMenu::~SettingsMenu(){
 }
 
 void SettingsMenu::Update(){
+
+
+
+
     if(Button::CheckForScreenPress()){
         if(backButton.Pressing()){
             Set(MODE_MAIN_MENU);

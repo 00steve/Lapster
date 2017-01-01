@@ -47,6 +47,8 @@ protected:
 
     Button(Int2 topLeft,Int2 bottomRight,String text,Int2 textOffset);
 
+    static void ResetPressingAfterHolding();
+
 public:
     Button(Int2 topLeft,Int2 bottomRight,String text);
 
@@ -60,6 +62,9 @@ public:
 
     virtual bool Disable();
     virtual bool Enable();
+
+    Int2 TopLeft();
+    Int2 BottomRight();
 
     static void SetupButton();
 

@@ -32,9 +32,10 @@ bool Subsystem::Setup(){
     screen.Setup();
     touch.Setup();
     gps.Setup();
-    compass.Setup();
+    //compass.Setup();
     gyrometer.Setup();
     accelerometer.Setup();
+    compass.Setup();
 
     sdCard.Setup();
 
@@ -175,4 +176,29 @@ bool Subsystem::EndLogging(){
 
 String Subsystem::DateString(){
     return "";
+}
+
+
+bool Subsystem::DataStreamRef(unsigned short input,DataStream** &streams,unsigned short &numStreams){
+    switch(input){
+    case INPUT_ACCELEROMETER:
+        numStreams = 3;
+        streams = new DataStream*[3];
+        //double* streams[3] = {accelerometer.XPtr(),accelerometer.YPtr(),accelerometer.ZPtr()};
+        //return streams;
+        return true;
+
+
+
+    case INPUT_ANALOG1:
+        numStreams = 1;
+        streams = new DataStream*[1];
+        streams[0] = new DataStream();
+        streams[0]->value = AnalogInputs[0]->ValueRef();
+        streams[0]->mapMin = AnalogInputs[0]->MinimumMapRef();
+        streams[0]->mapMax = AnalogInputs[0]->MaximumMapRef();
+        streams[0]->input = AnalogInputs[0];
+        return true;
+    }
+    return false;
 }

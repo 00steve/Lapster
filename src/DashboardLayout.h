@@ -3,6 +3,7 @@
 
 #include <DashboardWidget.h>
 #include <WidgetSettings.h>
+#include <Subsystem.h>
 
 #define LAYOUT_SINGLE 1
 #define LAYOUT_SIDE_BY_SIDE 2

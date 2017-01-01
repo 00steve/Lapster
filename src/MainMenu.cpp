@@ -14,14 +14,14 @@ MainMenu::~MainMenu(){
 }
 
 void MainMenu::Update(){
-    if(Button::CheckForScreenPress()){
-        if(settingsButton.Pressing()){
+    if(Button::CheckForScreenPressed()){
+        if(settingsButton.Pressed()){
             Set(MODE_SETTINGS);
         }
-        if(dataLoggerButton.Pressing()){
+        if(dataLoggerButton.Pressed()){
             Set(MODE_DATA_LOGGER);
         }
-        if(dashboardButton.Pressing()){
+        if(dashboardButton.Pressed()){
             Set(MODE_DASHBOARD);
         }
     }

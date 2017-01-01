@@ -17,8 +17,8 @@ void AnalogInput::Setup(){
     mapMin = 0;
     mapMax = 100;
     //read from eeprom
-    warnMin = (double)20 / (double)255 * (double)5;
-    warnMax = (double)200 / (double)255 * (double)5;
+    warnMin = mapMin;
+    warnMax = mapMax;
     //label = String("Oil Pressure");
 
     LoadSettings(eepromOffset);
@@ -35,6 +35,7 @@ String AnalogInput::StatusString(){
 }
 void AnalogInput::Update(){
     voltage = analogRead(pin) / (double) MaxAnalogVoltageInt() * 5;
+    value = Map(voltage,voltMin,voltMax,mapMin,mapMax);
     if(voltage > warnMax || voltage < warnMin){
         if(!currentAlert){
             currentAlert = true;
@@ -110,11 +111,20 @@ bool AnalogInput::LoadSettings(int startingEepromOffset){
     return true;
 }
 
+double AnalogInput::Value(){
+    return value;
+}
+double* AnalogInput::ValueRef(){
+    return &value;
+}
+
 
 double AnalogInput::Voltage(){
     return voltage;
 }
-
+double* AnalogInput::VoltageRef(){
+    return &voltage;
+}
 
 double AnalogInput::MinimumVoltage(){
     return voltMin;
@@ -122,13 +132,20 @@ double AnalogInput::MinimumVoltage(){
 double AnalogInput::MaximumVoltage(){
     return voltMax;
 }
-
 double AnalogInput::MinimumMap(){
     return mapMin;
 }
 double AnalogInput::MaximumMap(){
     return mapMax;
 }
+double AnalogInput::MinimumWarning(){
+    return warnMin;
+}
+double AnalogInput::MaximumWarning(){
+    return warnMax;
+}
+
+
 double* AnalogInput::MinimumVoltageRef(){
     return &voltMin;
 }
@@ -141,6 +158,13 @@ double* AnalogInput::MinimumMapRef(){
 double* AnalogInput::MaximumMapRef(){
     return &mapMax;
 }
+double* AnalogInput::MinimumWarningRef(){
+    return &warnMin;
+}
+double* AnalogInput::MaximumWarningRef(){
+    return &warnMax;
+}
+
 
 String* AnalogInput::LabelRef(){
     return &label;

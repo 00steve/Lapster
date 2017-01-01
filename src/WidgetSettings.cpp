@@ -1,8 +1,13 @@
 #include "WidgetSettings.h"
 
 
-WidgetSettings::WidgetSettings(DashboardWidget* widget){
-    this->widget = widget;
+WidgetSettings::WidgetSettings(DashboardWidget* currentWidget){
+    widget = currentWidget;
+    widgetPosition = widget->Position();
+    widgetSize = widget->Size();
+    widget->Size(Int2(160,160));
+    widget->Position(Int2(50,80));
+
 }
 
 WidgetSettings::~WidgetSettings(){
@@ -13,21 +18,21 @@ void WidgetSettings::Update(){
 
     if(Swipe::Swiped()){
         switch(Swipe::LastDirection()){
-        case SWIPE_UP:
-            break;
         case SWIPE_DOWN:
+            widget->Size(widgetSize);
+            widget->Position(widgetPosition);
             Finished(true);
             return;
-            //Finished(true);
-            //break;
-        case SWIPE_RIGHT:
-            break;
-        case SWIPE_LEFT:
-            break;
         }
     }
 
-    if(Button::CheckForScreenPress()){
+    if(Button::CheckForScreenPressed()){
+        if(inputButton.Pressed()){
+            Serial.println("pressed");
+        }
+        if(widget->Pressed()){
+            Serial.println("switch widget");
+        }
         //if(backButton.Pressing()){
         //    Finished(true);
         //}
@@ -40,7 +45,7 @@ void WidgetSettings::Update(){
 }
 
 void WidgetSettings::Draw(){
-
+    widget->Draw();
 }
 
 void WidgetSettings::Redraw(){
@@ -50,5 +55,10 @@ void WidgetSettings::Redraw(){
 
     Button::SetTftSettings();
 
-    backButton.Draw();
+    widget->Redraw();
+
+    inputButton.Draw();
+    something.Draw();
+
+    //backButton.Draw();
 }

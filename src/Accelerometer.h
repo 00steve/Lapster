@@ -28,6 +28,9 @@ public:
 
     Double3 Raw();
 
+    double* XPtr();
+    double* YPtr();
+    double* ZPtr();
 
 };
 

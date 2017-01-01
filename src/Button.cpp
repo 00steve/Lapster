@@ -79,7 +79,6 @@ Button::Button(Int2 topLeft,Int2 bottomRight,String text) :
 Button::~Button(){
 }
 
-
 void Button::Draw(){
         //tft.fillRoundRect(topLeft.x,topLeft.y,bottomRight.x-topLeft.x,bottomRight.y-topLeft.y,borderRadius,backgroundColor);
         tft.fillRect(topLeft.x,topLeft.y,bottomRight.x-topLeft.x,bottomRight.y-topLeft.y,backgroundColor);
@@ -106,7 +105,16 @@ bool Button::Holding(){
     //go right to not pressed screen so holding, having another button
     //get displayed underneath the holding one (that only needs to be
     //pressed
+    if(holding){
+        ResetPressingAfterHolding();
+    }
     return holding;
+}
+
+
+void Button::ResetPressingAfterHolding(){
+        waitForDepress = false;
+        pressedScreen = false;
 }
 
 bool Button::Pressed(){
@@ -193,6 +201,8 @@ void Button::WaitForDepress(){
     waitForDepress = true;
 }
 
+Int2 Button::TopLeft(){ return topLeft; }
+Int2 Button::BottomRight(){ return bottomRight; }
 
 
 

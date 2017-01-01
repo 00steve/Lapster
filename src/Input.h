@@ -43,6 +43,8 @@ public:
     virtual void Setup() = 0;
     virtual void Update() = 0;
     virtual String Label() = 0;
+    virtual String Units();
+    virtual String* UnitsRef();
 
     virtual String StatusString();
 

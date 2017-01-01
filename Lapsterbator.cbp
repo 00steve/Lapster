@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Lapsterbator" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Lapsterbator" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Lapsterbator" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="src/Accelerometer.cpp" />
+		<Unit filename="src/Accelerometer.h" />
+		<Unit filename="src/AccelerometerSettings.cpp" />
+		<Unit filename="src/AccelerometerSettings.h" />
+		<Unit filename="src/AlertInfo.cpp" />
+		<Unit filename="src/AlertInfo.h" />
+		<Unit filename="src/AlertScreen.cpp" />
+		<Unit filename="src/AlertScreen.h" />
+		<Unit filename="src/AnalogInput.cpp" />
+		<Unit filename="src/AnalogInput.h" />
+		<Unit filename="src/AnalogInputMenu.cpp" />
+		<Unit filename="src/AnalogInputMenu.h" />
+		<Unit filename="src/BarGauge.cpp" />
+		<Unit filename="src/BarGauge.h" />
+		<Unit filename="src/Button.cpp" />
+		<Unit filename="src/Button.h" />
+		<Unit filename="src/Checkbox.cpp" />
+		<Unit filename="src/Checkbox.h" />
+		<Unit filename="src/Compass.cpp" />
+		<Unit filename="src/Compass.h" />
+		<Unit filename="src/CompassSettings.cpp" />
+		<Unit filename="src/CompassSettings.h" />
+		<Unit filename="src/Confirm.cpp" />
+		<Unit filename="src/Confirm.h" />
+		<Unit filename="src/Dashboard.cpp" />
+		<Unit filename="src/Dashboard.h" />
+		<Unit filename="src/DashboardLayout.cpp" />
+		<Unit filename="src/DashboardLayout.h" />
+		<Unit filename="src/DashboardWidget.cpp" />
+		<Unit filename="src/DashboardWidget.h" />
+		<Unit filename="src/DataLogger.cpp" />
+		<Unit filename="src/DataLogger.h" />
+		<Unit filename="src/Diagnostics.cpp" />
+		<Unit filename="src/Diagnostics.h" />
+		<Unit filename="src/Double3.cpp" />
+		<Unit filename="src/Double3.h" />
+		<Unit filename="src/Drawable.cpp" />
+		<Unit filename="src/Drawable.h" />
+		<Unit filename="src/Eprom.cpp" />
+		<Unit filename="src/Eprom.h" />
+		<Unit filename="src/GPS.cpp" />
+		<Unit filename="src/GPS.h" />
+		<Unit filename="src/GPSsettings.h" />
+		<Unit filename="src/Gyrometer.cpp" />
+		<Unit filename="src/Gyrometer.h" />
+		<Unit filename="src/GyrometerSettings.cpp" />
+		<Unit filename="src/GyrometerSettings.h" />
+		<Unit filename="src/Icon.cpp" />
+		<Unit filename="src/Icon.h" />
+		<Unit filename="src/Input.cpp" />
+		<Unit filename="src/Input.h" />
+		<Unit filename="src/InputSelectMenu.cpp" />
+		<Unit filename="src/InputSelectMenu.h" />
+		<Unit filename="src/InputsMenu.cpp" />
+		<Unit filename="src/InputsMenu.h" />
+		<Unit filename="src/Int2.cpp" />
+		<Unit filename="src/Int2.h" />
+		<Unit filename="src/Keyboard.cpp" />
+		<Unit filename="src/Keyboard.h" />
+		<Unit filename="src/Lapsterbator.cpp" />
+		<Unit filename="src/Lapsterbator.h" />
+		<Unit filename="src/LoggingSettings.cpp" />
+		<Unit filename="src/LoggingSettings.h" />
+		<Unit filename="src/MainMenu.cpp" />
+		<Unit filename="src/MainMenu.h" />
+		<Unit filename="src/Mode.cpp" />
+		<Unit filename="src/Mode.h" />
+		<Unit filename="src/NumberSpinner.cpp" />
+		<Unit filename="src/NumberSpinner.h" />
+		<Unit filename="src/Quaternion.cpp" />
+		<Unit filename="src/Quaternion.h" />
+		<Unit filename="src/SDCard.cpp" />
+		<Unit filename="src/SDCard.h" />
+		<Unit filename="src/Screen.cpp" />
+		<Unit filename="src/Screen.h" />
+		<Unit filename="src/SettingsMenu.cpp" />
+		<Unit filename="src/SettingsMenu.h" />
+		<Unit filename="src/Slider.cpp" />
+		<Unit filename="src/Slider.h" />
+		<Unit filename="src/StorageMenu.cpp" />
+		<Unit filename="src/StorageMenu.h" />
+		<Unit filename="src/Subsystem.cpp" />
+		<Unit filename="src/Subsystem.h" />
+		<Unit filename="src/Swipe.cpp" />
+		<Unit filename="src/Swipe.h" />
+		<Unit filename="src/Timer.cpp" />
+		<Unit filename="src/Timer.h" />
+		<Unit filename="src/Touch.cpp" />
+		<Unit filename="src/Touch.h" />
+		<Unit filename="src/WidgetSettings.cpp" />
+		<Unit filename="src/WidgetSettings.h" />
+		<Unit filename="src/font_AwesomeF000.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/font_AwesomeF000.h" />
+		<Unit filename="src/font_GeorgiaItalic.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/font_GeorgiaItalic.h" />
+		<Unit filename="src/font_LiberationSans.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/font_LiberationSans.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

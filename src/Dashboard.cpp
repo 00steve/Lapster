@@ -18,7 +18,7 @@ Dashboard::~Dashboard(){
 
 void Dashboard::Update(){
     if(Button::CheckForScreenPressed()){
-        Serial.println("pressed screen");
+        //Serial.println("pressed screen");
     }
 
     if(Swipe::Swiped()){
@@ -43,6 +43,7 @@ void Dashboard::Update(){
             PushState(new WidgetSettings(dashboardLayout->EditWidget()));
         }
     }
+    Draw();
 }
 
 void Dashboard::Redraw(){
@@ -53,5 +54,5 @@ void Dashboard::Redraw(){
 }
 
 void Dashboard::Draw(){
-
+    if(dashboardLayout) dashboardLayout->Draw();
 }

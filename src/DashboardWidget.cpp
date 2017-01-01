@@ -5,11 +5,38 @@
 
 
 
-DashboardWidget::DashboardWidget(Int2 topLeft, Int2 bottomRight):
-        Button(topLeft,bottomRight,"") {
-    //stuff in the class
+DashboardWidget::DashboardWidget(Int2 topLeft, Int2 bottomRight,unsigned short gaugeType,unsigned short inputType):
+        Button(topLeft,bottomRight,""),
+        gauge(NULL) {
+    //this->topLeft = topLeft;
+    //this->bottomRight = bottomRight;
+    this->inputType = inputType;
+    GaugeType(gaugeType);
 }
 
+unsigned short DashboardWidget::GaugeType(unsigned short newGaugeType){
+    if(gauge){
+        delete gauge;
+    }
+    Serial.println(TopLeft().x);
+    Serial.println(TopLeft().y);
+    Serial.println(BottomRight().x);
+    Serial.println(BottomRight().y);
+    switch(newGaugeType){
+    case GAUGE_TYPE_EMPTY:
+        gauge = new EmptyGauge(TopLeft(),BottomRight(),inputType);
+        break;
+    case GAUGE_TYPE_BAR:
+        gauge = new BarGauge(TopLeft(),BottomRight(),inputType);
+        break;
+    }
+    return newGaugeType;
+}
+
+
+unsigned short DashboardWidget::InputType(unsigned short newInputType){
+    return newInputType;
+}
 
 
 
@@ -20,14 +47,26 @@ void DashboardWidget::Update(){
 
 
 void DashboardWidget::Draw(){
-
-
+    gauge->Draw();
 }
 
 void DashboardWidget::Redraw(){
-    tft.drawRect(topLeft.x,topLeft.y,bottomRight.x-topLeft.x,bottomRight.y-topLeft.y,0xFFFF);
-    tft.setFont(LiberationSans_12);
-    Int2 center = (bottomRight + topLeft) /2;
-    tft.setCursor(center.x-85,center.y-6);
-    tft.print("Press for context menu");
+    gauge->Redraw();
 }
+
+
+
+Int2 DashboardWidget::Size(Int2 newSize){
+    bottomRight.x = topLeft.x + newSize.x;
+    bottomRight.y = topLeft.y + newSize.y;
+    if(gauge) gauge->Size(newSize);
+    return newSize;
+}
+Int2 DashboardWidget::Position(Int2 newPosition){
+    bottomRight += newPosition - topLeft;
+    topLeft = newPosition;
+    if(gauge) gauge->Position(newPosition);
+    return newPosition;
+}
+Int2 DashboardWidget::Size(){return bottomRight - topLeft; }
+Int2 DashboardWidget::Position(){ return topLeft; }

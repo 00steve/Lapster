@@ -15,6 +15,11 @@ public:
     Int2 operator / (const int other);
     Int2 operator * (const int other);
 
+    Int2 operator += (const Int2 other);
+    Int2 operator -= (const Int2 other);
+
+    Int2 operator / (const double other);
+    Int2 operator * (const double other);
 };
 
 

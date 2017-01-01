@@ -9,7 +9,7 @@
 class CompassSettings : public Mode{
 private:
 
-    Button *backButton = NULL;
+    Button backButton = Button(Int2(50,0),Int2(160,80),"Back");
 
     Double3 initVec = Double3(0,1,0);
 

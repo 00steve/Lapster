@@ -1,6 +1,7 @@
 #ifndef SUBSYSTEM_H
 #define SUBSYSTEM_H
 
+#define INPUT_NONE -1
 #define INPUT_GPS 0
 #define INPUT_COMPASS 1
 #define INPUT_ACCELEROMETER 2
@@ -17,11 +18,11 @@
 #define INPUT_ANALOG8 15
 
 
-
 #define DATATYPE_BYTE 0
 #define DATATYPE_LONG 1
 #define DATATYPE_DOUBLE 2
 #define DATATYPE_FLOAT 3
+
 
 
 #include <GPS.h>
@@ -34,6 +35,7 @@
 #include <Eprom.h>
 #include <AnalogInput.h>
 #include <SDCard.h>
+#include <DataStream.h>
 
 
 
@@ -63,7 +65,8 @@ public:
 
     static bool NewAlert();
 
-    /*create a static array of inputs that represents all of the inputs in the system*/
+    /*create a static array of inputs that represents
+    all of the analog inputs in the system*/
     static AnalogInput *AnalogInputs[8];
 
     /*reset all configurable settings to what they started as
@@ -82,6 +85,12 @@ public:
 
     static void LogBegin();
     static void LogState();
+
+    /*get an array of data streams coming from an input, as an array of
+    pointers to doubles. These doubles will always have the up-to-date values
+    of the inputs they point to.*/
+    static bool DataStreamRef(unsigned short input,DataStream** &streams,unsigned short &numStreams);
+
 };
 
 #endif

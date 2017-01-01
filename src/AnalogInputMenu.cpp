@@ -13,6 +13,8 @@ void AnalogInputMenu::Setup(){
     vInMaxSpinner = new NumberSpinner(Int2(390,90),Int2(480,130),iRef->MaximumVoltageRef(),0,5);
     mapMinSpinner = new NumberSpinner(Int2(300,140),Int2(380,180),iRef->MinimumMapRef(),std::numeric_limits<float>::min(),std::numeric_limits<float>::max());
     mapMaxSpinner = new NumberSpinner(Int2(390,140),Int2(480,180),iRef->MaximumMapRef(),std::numeric_limits<float>::min(),std::numeric_limits<float>::max());
+    wrnMinSpinner = new NumberSpinner(Int2(300,190),Int2(380,230),iRef->MinimumWarningRef(),0,250);
+    wrnMaxSpinner = new NumberSpinner(Int2(390,190),Int2(480,230),iRef->MaximumWarningRef(),0,250);
 
     Serial.println("setup analog input menu");
 
@@ -35,6 +37,8 @@ AnalogInputMenu::~AnalogInputMenu(){
     delete vInMaxSpinner;
     delete mapMinSpinner;
     delete mapMaxSpinner;
+    delete wrnMinSpinner;
+    delete wrnMaxSpinner;
 }
 
 void AnalogInputMenu::Draw(){
@@ -67,6 +71,8 @@ void AnalogInputMenu::Redraw(){
     vInMaxSpinner->Draw();
     mapMinSpinner->Draw();
     mapMaxSpinner->Draw();
+    wrnMinSpinner->Draw();
+    wrnMaxSpinner->Draw();
 
 
     tft.setCursor(50,103);
@@ -88,7 +94,8 @@ void AnalogInputMenu::Redraw(){
     tft.print("Voltage:");
     tft.setCursor(230,153);
     tft.print("Map:");
-
+    tft.setCursor(230,203);
+    tft.print("Warn:");
 
     tft.setCursor(170,10);
     tft.print("Voltage:");
@@ -128,6 +135,8 @@ void AnalogInputMenu::Update(){
         vInMaxSpinner->Pressing();
         mapMinSpinner->Pressing();
         mapMaxSpinner->Pressing();
+        wrnMinSpinner->Pressing();
+        wrnMaxSpinner->Pressing();
     }
 
     if(Button::CheckForScreenDrag()){
@@ -135,7 +144,8 @@ void AnalogInputMenu::Update(){
         vInMaxSpinner->Dragging();
         mapMinSpinner->Dragging();
         mapMaxSpinner->Dragging();
-
+        wrnMinSpinner->Dragging();
+        wrnMaxSpinner->Dragging();
     }
 
     if(timer.Tick()) Draw();
