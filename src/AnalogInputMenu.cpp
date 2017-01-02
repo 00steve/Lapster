@@ -131,12 +131,24 @@ void AnalogInputMenu::Update(){
             PushState(new Keyboard(&units,6));
             changed = true;
         }
-        vInMinSpinner->Pressing();
-        vInMaxSpinner->Pressing();
-        mapMinSpinner->Pressing();
-        mapMaxSpinner->Pressing();
-        wrnMinSpinner->Pressing();
-        wrnMaxSpinner->Pressing();
+        if(vInMinSpinner->Pressing()){
+            changed = true;
+        }
+        if(vInMaxSpinner->Pressing()){
+            changed = true;
+        }
+        if(mapMinSpinner->Pressing()){
+            changed = true;
+        }
+        if(mapMaxSpinner->Pressing()){
+            changed = true;
+        }
+        if(wrnMinSpinner->Pressing()){
+            changed = true;
+        }
+        if(wrnMaxSpinner->Pressing()){
+            changed = true;
+        }
     }
 
     if(Button::CheckForScreenDrag()){

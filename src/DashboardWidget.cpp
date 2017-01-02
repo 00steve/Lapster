@@ -1,15 +1,8 @@
 #include "DashboardWidget.h"
 
-
-
-
-
-
 DashboardWidget::DashboardWidget(Int2 topLeft, Int2 bottomRight,unsigned short gaugeType,unsigned short inputType):
         Button(topLeft,bottomRight,""),
         gauge(NULL) {
-    //this->topLeft = topLeft;
-    //this->bottomRight = bottomRight;
     this->inputType = inputType;
     GaugeType(gaugeType);
 }
@@ -29,18 +22,13 @@ unsigned short DashboardWidget::GaugeType(unsigned short newGaugeType){
     return newGaugeType;
 }
 
-
 unsigned short DashboardWidget::InputType(unsigned short newInputType){
     return newInputType;
 }
 
-
-
 void DashboardWidget::Update(){
 
 }
-
-
 
 void DashboardWidget::Draw(){
     gauge->Draw();
@@ -49,8 +37,6 @@ void DashboardWidget::Draw(){
 void DashboardWidget::Redraw(){
     gauge->Redraw();
 }
-
-
 
 Int2 DashboardWidget::Size(Int2 newSize){
     bottomRight.x = topLeft.x + newSize.x;

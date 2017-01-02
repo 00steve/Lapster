@@ -19,7 +19,6 @@ void AnalogInput::Setup(){
     //read from eeprom
     warnMin = mapMin;
     warnMax = mapMax;
-    //label = String("Oil Pressure");
 
     LoadSettings(eepromOffset);
 
@@ -88,46 +87,72 @@ bool AnalogInput::StoreSettings(){
     Serial.println("store analog input settings");
     Serial.print("enabled : ");
     Serial.println(enabled);
-    int offset = eepromOffset;
-    Eprom::WriteChar(offset,enabled); offset ++;
-    Eprom::WriteShort(offset,0); offset+= 2;
-    Eprom::WriteShort(offset,3.3); offset+= 2;
-    Eprom::WriteFloat(offset,0); offset+= 4;
-    Eprom::WriteFloat(offset,3.3); offset+= 4;
 
-    Eprom::WriteString(offset,label); offset += 16;
+    int offset = eepromOffset;
+    unsigned char stuff = 0;
+    Eprom::SetBit(stuff,0,enabled);
+    Eprom::SetBit(stuff,1,ignoreAlert);
+    Eprom::SetBit(stuff,2,record);
+
+    Eprom::WriteChar(offset,stuff);
+    Eprom::WriteUShort(offset,(unsigned short)(voltMin*10000));
+    Eprom::WriteUShort(offset,(unsigned short)(voltMax*10000));
+    Eprom::WriteFloat(offset,(float)mapMin);
+    Eprom::WriteFloat(offset,(float)mapMax);
+    Eprom::WriteUShort(offset,(unsigned short)(warnMin*10000));
+    Eprom::WriteUShort(offset,(unsigned short)(warnMax*10000));
+
+    //Eprom::WriteString(offset,label); offset += 16;
     return true;
 }
 bool AnalogInput::StoreSettingDefaults(int startingEepromOffset){
-    Serial.println("store analog input settings");
-    Serial.print("enabled : false");
-    int offset = startingEepromOffset;
-    Serial.print("reset input ");
-    Serial.print(startingEepromOffset-1023/64);
-    Serial.print(" to factory settings\n");
-    //build first char that stores what is enabled
-    Serial.print("write to "); Serial.println(offset);
-    Eprom::WriteChar(offset,(char)0);
-    Serial.print("write to "); Serial.println(offset);
-    Eprom::WriteUShort(offset,(unsigned short)0);
-    Serial.print("write to "); Serial.println(offset);
-    Eprom::WriteUShort(offset,(unsigned short)33000);
-    Serial.print("write to "); Serial.println(offset);
-    //Eprom::Write
-
-    Eprom::WriteString(offset,"");
-
+    Serial.println("[don't use this shit, fuck face!]");
     return true;
-    //Eprom::Write
 }
 
 bool AnalogInput::LoadSettings(int startingEepromOffset){
     int offset = startingEepromOffset;
-    enabled = Eprom::ReadChar(offset); offset ++;
-    label = Eprom::ReadString(offset,16); offset += 16;
+
+    unsigned char props = Eprom::ReadChar(offset);
+    enabled = Eprom::GetBit(props,0);
+    //Serial.println(props);
+    ignoreAlert = Eprom::GetBit(props,1);
+    record = Eprom::GetBit(props,2);
+    /*Serial.print("enabled : ");
+    Serial.println(enabled);
+    Serial.print("ignore alert : ");
+    Serial.println(ignoreAlert);
+    Serial.print("record : ");
+    Serial.println(record);*/
+
+
+    voltMin = (double)Eprom::ReadUShort(offset)/10000;
+    voltMax = (double)Eprom::ReadUShort(offset)/10000;
+    mapMin = Eprom::ReadFloat(offset);
+    mapMax = Eprom::ReadFloat(offset);
+    warnMin = (double)Eprom::ReadUShort(offset)/10000;
+    warnMax = (double)Eprom::ReadUShort(offset)/10000;
+
+
 
     return true;
 }
+
+void AnalogInput::RestoreInputSettings(int startingEepromOffset){
+    int offset = startingEepromOffset;
+    unsigned char stuff = (unsigned char)0;
+    Eprom::SetBit(stuff,0,true);//enabled
+    Eprom::SetBit(stuff,1,false);//ignore alert
+    Eprom::SetBit(stuff,2,true);//record
+    Eprom::WriteChar(offset,stuff);
+    Eprom::WriteUShort(offset,(unsigned short)0);
+    Eprom::WriteUShort(offset,(unsigned short)33000);
+    Eprom::WriteFloat(offset,(float)0);
+    Eprom::WriteFloat(offset,(float)100);
+    Eprom::WriteUShort(offset,(unsigned short)0);
+    Eprom::WriteUShort(offset,(unsigned short)50000);
+}
+
 
 double AnalogInput::Value(){
     return value;
@@ -189,22 +214,3 @@ String* AnalogInput::LabelRef(){
 }
 
 
-void AnalogInput::RestoreInputSettings(int startingEepromOffset){
-    Serial.println("store analog input settings");
-    Serial.print("enabled : false");
-    int offset = startingEepromOffset;
-    Serial.print("reset input ");
-    Serial.print(startingEepromOffset-1023/64);
-    Serial.print(" to factory settings\n");
-    //build first char that stores what is enabled
-    Serial.print("write to "); Serial.println(offset);
-    Eprom::WriteChar(offset,(char)0);
-    Serial.print("write to "); Serial.println(offset);
-    Eprom::WriteUShort(offset,(unsigned short)0);
-    Serial.print("write to "); Serial.println(offset);
-    Eprom::WriteUShort(offset,(unsigned short)33000);
-    Serial.print("write to "); Serial.println(offset);
-    //Eprom::Write
-
-    Eprom::WriteString(offset,"");
-}

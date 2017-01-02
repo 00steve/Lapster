@@ -5,15 +5,17 @@ bool Lapsterbator::Setup(){
     /*don't get rid of this delay. It is required by the teensy 3.1s
     hardware. The IC2 channel isn't ready when the teensy starts up,
     so the program starts running and can't detect it so it shows a
-    white screen instead of everything working correctly.*/
+    white screen instead of everything working correctly.
+
+    Good job, past Steve, I don't see how this applies any more, considering
+    there is no delay below. I am leaving this as a monument to your
+    idiocy. -Sincerely present Steve*/
 
     lastError = "No errors so far.";
     Subsystem::Setup();
 
     Drawable::HarwareReference(Subsystem::screen.HardwareReference());
     Button::SetupButton();
-
-
 
     Subsystem::timer.Update();
     Subsystem::touch.Update();
@@ -26,7 +28,6 @@ bool Lapsterbator::Setup(){
         Subsystem::screen.FillRect(0,0,480,60,WARNING_BACKGROUND);
         Subsystem::screen.Print(LiberationSans_16,ILI9341_WHITE,Int2(10,10),"Continue pressing screen for 2 seconds to enter ");
         Subsystem::screen.Print(LiberationSans_16,ILI9341_WHITE,Int2(10,30),"system diagnostics menu.");
-
         while(Subsystem::touch.Pressing() && Subsystem::timer.Seconds()-timeStart<diagTime){
             Subsystem::timer.Update();
             Subsystem::touch.Update();
@@ -34,15 +35,7 @@ bool Lapsterbator::Setup(){
         if(Subsystem::touch.Pressing() && Subsystem::timer.Seconds()-timeStart>=diagTime){
             current_process = new Diagnostics();
         }
-
     }
-
-    unsigned short x = 62000;
-    char* b = reinterpret_cast<char*>(&x);
-    unsigned short* s = reinterpret_cast<unsigned short*>(b);
-    Serial.println(s[0]);
-
-
 
     if(!current_process){
         current_process = new MainMenu();

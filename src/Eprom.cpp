@@ -62,7 +62,7 @@ void Eprom::Setup(){
 }
 
 void Eprom::WriteChar(int &address,char value){
-    EEPROM.write(address,value);
+    EEPROM.write(address++,value);
 }
 
 void Eprom::WriteDouble(int &address,double value){
@@ -75,7 +75,6 @@ void Eprom::WriteDouble(int &address,double value){
     EEPROM.write(address++,b[5]);
     EEPROM.write(address++,b[6]);
     EEPROM.write(address++,b[7]);
-    delete b;
 }
 
 void Eprom::WriteFloat(int &address,float value){
@@ -84,7 +83,6 @@ void Eprom::WriteFloat(int &address,float value){
     EEPROM.write(address++,b[1]);
     EEPROM.write(address++,b[2]);
     EEPROM.write(address++,b[3]);
-    delete b;
 }
 
 void Eprom::WriteShort(int &address,short value){
@@ -135,13 +133,17 @@ void Eprom::WriteString(int &address,String value,unsigned int maxLength){
     Serial.println("----------------");
 }
 
-
 void Eprom::WriteUShort(int &address,unsigned short value){
     char* b = reinterpret_cast<char*>(&value);
-    b[0] = EEPROM.read(address++);
-    b[1] = EEPROM.read(address++);
-    delete b;
+    EEPROM.write(address++,b[0]);
+    EEPROM.write(address++,b[1]);
 }
+
+
+
+
+
+
 
 
 char Eprom::ReadChar(int &address){
@@ -194,6 +196,11 @@ unsigned short Eprom::ReadUShort(int &address){
     unsigned short* s = reinterpret_cast<unsigned short*>(b);
     return s[0];
 }
+
+
+
+
+
 
 
 bool Eprom::GetBit(unsigned char value, int position){ // position in range 0-7

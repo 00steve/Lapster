@@ -23,6 +23,7 @@ protected:
 
 
     bool enabled;
+    bool ignoreAlert;
     bool record;
     /*store the offset of where the input stores its setting information
     in the eeprom.*/
