@@ -12,6 +12,8 @@ Double3 Double3::Normalize(){
     return *this;
 }
 
+double Double3::Length(){ return sqrt(X*X + Y*Y + Z*Z); }
+
 double Double3::operator * (const Double3 &other){
     return X*other.X + Y*other.Y + Z*other.Z;
 }

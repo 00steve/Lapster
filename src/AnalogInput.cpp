@@ -133,6 +133,12 @@ bool AnalogInput::LoadSettings(int startingEepromOffset){
     warnMin = (double)Eprom::ReadUShort(offset)/10000;
     warnMax = (double)Eprom::ReadUShort(offset)/10000;
 
+    Serial.print("volt min "); Serial.println(voltMin);
+    Serial.print("volt max "); Serial.println(voltMax);
+    Serial.print("map  min "); Serial.println(mapMin);
+    Serial.print("map  max "); Serial.println(mapMax);
+    Serial.print("warn min "); Serial.println(warnMin);
+    Serial.print("warn max "); Serial.println(warnMax);
 
 
     return true;

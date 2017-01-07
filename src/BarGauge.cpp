@@ -44,10 +44,14 @@ void BarGauge::Redraw(){
     tft.drawFastVLine(BottomRight().x,TopLeft().y,Size().y,0x00FF);
 
     tft.setFont(LiberationSans_12);
+
     Int2 maxPos = Int2(Center().x,TopLeft().y+graphPadding-6);
     tft.setCursor(maxPos.x,maxPos.y);
     tft.print(DataStreamMaxMap(0));
 
+    Int2 minPos = Int2(Center().x,BottomRight().y-graphPadding-6);
+    tft.setCursor(minPos.x,minPos.y);
+    tft.print(DataStreamMinMap(0));
     /*
     Int2 centerRight = BottomRight();
     centerRight.x -= Size().x * .25;
@@ -58,5 +62,5 @@ void BarGauge::Redraw(){
 
     //reset the last val as the min so the whole bar is redrawn
     currentVal = DataStreamMinMap(0);
-
+    Draw();
 }

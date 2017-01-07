@@ -15,6 +15,8 @@ public:
 
     Double3 Normalize();
 
+    double Length();
+
     /*calculate the dot product of two double3s*/
     double operator * (const Double3 &other);
 

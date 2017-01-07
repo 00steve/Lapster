@@ -29,8 +29,8 @@ public:
     Gauge(Int2 topLeft,Int2 bottomRight,unsigned short inputType);
     virtual ~Gauge();
 
-    virtual void Draw();
-    virtual void Redraw();
+    virtual void Draw() = 0;
+    virtual void Redraw() = 0;
     virtual void References(double* references[],unsigned short referenceCount);
 
     double MinValue(double newMinValue);

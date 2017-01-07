@@ -4,6 +4,7 @@
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Input.h>
+#include <MathUtils.h>
 
 class Accelerometer : public Input{
 private:
@@ -13,6 +14,9 @@ private:
     static int zPin;
     static Double3 acceleration;
     static Double3 gravity;
+
+    static Double3 oneGUp;
+    static Double3 oneGDown;
 
 protected:
     virtual void SetTilt(Double3 tilt);

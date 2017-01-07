@@ -20,8 +20,7 @@ void Gauge::CalculateBounds(){
     center = (topLeft + bottomRight) * .5;
 }
 
-void Gauge::Draw(){}
-void Gauge::Redraw(){}
+
 void Gauge::References(double* references[],unsigned short referenceCount){}
 
 double Gauge::MinValue(double newMinValue){
