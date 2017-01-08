@@ -63,6 +63,8 @@
 		<Unit filename="src/DashboardWidget.h" />
 		<Unit filename="src/DataLogger.cpp" />
 		<Unit filename="src/DataLogger.h" />
+		<Unit filename="src/DeadReckon.cpp" />
+		<Unit filename="src/DeadReckon.h" />
 		<Unit filename="src/Diagnostics.cpp" />
 		<Unit filename="src/Diagnostics.h" />
 		<Unit filename="src/Double3.cpp" />
