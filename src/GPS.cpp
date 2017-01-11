@@ -268,7 +268,7 @@ uint8_t GPS::parse(const char* nmea, const uint32_t now)
 {
 
   //Serial.print("P: ");
-  Serial.println(nmea);
+  //Serial.println(nmea);
     if (*nmea != '$') {
         return PARSED_ERROR;
     }
