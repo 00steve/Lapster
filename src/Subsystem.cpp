@@ -48,7 +48,10 @@ bool Subsystem::Setup(){
     deadReckon.LatitudeRef(&gps.latitude);
     deadReckon.LongitudeRef(&gps.longitude);
     deadReckon.AltitudeRef(&gps.altitude);
+    deadReckon.AccelerationRef(accelerometer.AccelerationRef());
+    deadReckon.MagneticNorthRef(Compass::MagneticNorthRef());
 
+    deadReckon.Calibrate();
 
     return true;
 }

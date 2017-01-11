@@ -11,6 +11,7 @@ public:
     double Y;
     double Z;
 
+    Double3();
     Double3(double x,double y,double z);
 
     Double3 Normalize();
@@ -23,6 +24,9 @@ public:
     /*calculate the cross product of two double3s, which is a vector
     tangent to plane that both input double3s lie on.*/
     Double3 operator ^ (const Double3 &other);
+
+    Double3 operator + (const Double3 &other);
+    Double3 operator - (const Double3 &other);
 
     Double3 operator /= (const double &other);
     Double3 operator / (const double &other);

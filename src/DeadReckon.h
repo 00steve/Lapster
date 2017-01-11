@@ -13,6 +13,19 @@ private:
     const double earthRadiusPolar = 20855486.784;
     const double pi = 3.14159265359;
     const double radm = 0.01745329252;
+
+    const int calibrationIterations = 128;
+    int calibrationIterationsLeft;
+    bool calibrating;
+    Double3* acc;
+    Double3* mag;
+
+    //configured data
+    Double3 downVector;
+    Double3 leftVector;
+    Double3 backVector;
+    Double3 initialRotationVector;
+
     //data read from sensors
     Quaternion initialRotation;
     Quaternion currentRotation;
@@ -20,6 +33,8 @@ private:
     double* latitudeRef;
     double* longitudeRef;
     double* altitudeRef;
+    Double3* accelerationRef;
+    Double3* magneticNorthRef;
 
     double currentLatitude;
     double previousLatitude;
@@ -54,10 +69,17 @@ public:
 
     DeadReckon();
 
+    /*should be called when vehicle is not moving. This will determine
+    what angle gravity is at by default relative to the accelerometer.*/
+    void Calibrate();
+
+
     void LatitudeRef(double* newLatitudeRef);
     void LongitudeRef(double* newLongitudeRef);
     void AltitudeRef(double* newAltitudeRef);
 
+    void AccelerationRef(Double3* newAccelerationRef);
+    void MagneticNorthRef(Double3* newMagneticNorthRef);
 
     void Update();
 

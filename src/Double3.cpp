@@ -1,5 +1,6 @@
 #include "Double3.h"
 
+Double3::Double3(){}
 Double3::Double3(double x,double y,double z) :
         X(x),Y(y),Z(z){
 
@@ -19,6 +20,15 @@ double Double3::operator * (const Double3 &other){
 }
 Double3 Double3::operator ^ (const Double3 &other){
     return Double3( Y*other.Z - Z*other.Y, Z*other.X - X*other.Z, X*other.Y - Y*other.X);
+}
+
+
+
+Double3 Double3::operator + (const Double3 &other){
+    return Double3(X + other.X, Y + other.Y, Z + other.Z);
+}
+Double3 Double3::operator - (const Double3 &other){
+    return Double3(X - other.X, Y - other.Y, Z - other.Z);
 }
 
 

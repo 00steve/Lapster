@@ -70,4 +70,5 @@ Double3 Accelerometer::Raw(){ return acceleration; }
 double* Accelerometer::XPtr(){ return &acceleration.X; }
 double* Accelerometer::YPtr(){ return &acceleration.Y; }
 double* Accelerometer::ZPtr(){ return &acceleration.Z; }
+Double3* Accelerometer::AccelerationRef(){ return &acceleration; }
 
