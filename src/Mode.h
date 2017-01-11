@@ -30,6 +30,7 @@ mode by the main loop.*/
 #define MODE_DASHBOARD 300
 #define MODE_WIDGET_SETTINGS 310
 #define MODE_INPUT_SELECT_MENU 400
+#define MODE_SUBSYSTEM_SETTINGS 410
 
 #include <Button.h>
 #include <Drawable.h>

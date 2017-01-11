@@ -38,7 +38,8 @@ bool Lapsterbator::Setup(){
     }
 
     if(!current_process){
-        current_process = new MainMenu();
+        //current_process = new MainMenu();
+        current_process = new SubsystemSettings();
     }
 
     process_stack = new Mode*[5];

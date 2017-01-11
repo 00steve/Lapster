@@ -67,6 +67,8 @@
 		<Unit filename="src/Diagnostics.h" />
 		<Unit filename="src/Double3.cpp" />
 		<Unit filename="src/Double3.h" />
+		<Unit filename="src/Double4x4.cpp" />
+		<Unit filename="src/Double4x4.h" />
 		<Unit filename="src/Drawable.cpp" />
 		<Unit filename="src/Drawable.h" />
 		<Unit filename="src/Eprom.cpp" />
@@ -100,6 +102,8 @@
 		<Unit filename="src/Mode.h" />
 		<Unit filename="src/NumberSpinner.cpp" />
 		<Unit filename="src/NumberSpinner.h" />
+		<Unit filename="src/Project3d.cpp" />
+		<Unit filename="src/Project3d.h" />
 		<Unit filename="src/Quaternion.cpp" />
 		<Unit filename="src/Quaternion.h" />
 		<Unit filename="src/SDCard.cpp" />
@@ -114,6 +118,8 @@
 		<Unit filename="src/StorageMenu.h" />
 		<Unit filename="src/Subsystem.cpp" />
 		<Unit filename="src/Subsystem.h" />
+		<Unit filename="src/SubsystemSettings.cpp" />
+		<Unit filename="src/SubsystemSettings.h" />
 		<Unit filename="src/Swipe.cpp" />
 		<Unit filename="src/Swipe.h" />
 		<Unit filename="src/Timer.cpp" />
