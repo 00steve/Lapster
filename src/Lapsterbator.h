@@ -32,6 +32,7 @@
 
 #include <Dashboard.h>
 #include <InputSelectMenu.h>
+#include <SubsystemSettings.h>
 
 
 class Lapsterbator{
