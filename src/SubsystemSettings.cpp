@@ -22,8 +22,8 @@ void SubsystemSettings::Update(){
     p[6] = Double3(.5,.5,.5);
     p[7] = Double3(-.5,.5,.5);
 
-    //t = Quaternion::RotateY(.01) * t;
-    t = Quaternion::Forward() *
+    t = Quaternion::RotateY(.01) * t;
+    //t = Quaternion::Forward() *
     //t.Print();
     t.Rotate(p,8);
 
