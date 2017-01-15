@@ -108,6 +108,24 @@ Double3 Quaternion::operator *(Double3 v){
     return Double3(vf.x, vf.y, vf.z).Normalize();
 }
 
+Double3* Quaternion::Rotate(Double3* v,unsigned int c){
+    while(c --> 0){
+        v[c] = *this * v[c];
+    }
+    return v;
+}
+
+
+void Quaternion::Print(){
+    Serial.print(x);
+    Serial.print("\t");
+    Serial.print(y);
+    Serial.print("\t");
+    Serial.print(z);
+    Serial.print("\t");
+    Serial.println(w);
+}
+
 
 Quaternion Quaternion::Forward(){
     return Quaternion(0,0,0,1);
@@ -128,4 +146,14 @@ Quaternion Quaternion::Left(){
     return Quaternion(0,.7068,0,.7068);
 }
 
+
+Quaternion Quaternion::RotateX(double x){
+    return Quaternion(sin(x/2),0,0,cos(x/2));
+}
+Quaternion Quaternion::RotateY(double y){
+    return Quaternion(0,sin(y/2),0,cos(y/2));
+}
+Quaternion Quaternion::RotateZ(double z){
+    return Quaternion(0,0,sin(z/2),cos(z/2));
+}
 

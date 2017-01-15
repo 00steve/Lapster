@@ -2,20 +2,26 @@
 #define SUBSYSTEM_SETTINGS_H
 
 #include <Mode.h>
+#include <Icon.h>
 #include <Subsystem.h>
 #include <Project3d.h>
+#include <Quaternion.h>
 
 class SubsystemSettings : public Mode{
 private:
     Project3d projection;
 
+    Quaternion t;
+
+    void Setup();
+
 public:
     SubsystemSettings();
     ~SubsystemSettings();
 
-    void Update();
-    void Draw();
-    void Redraw();
+    virtual void Update();
+    virtual void Draw();
+    virtual void Redraw();
 
 
 

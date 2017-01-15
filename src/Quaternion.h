@@ -8,6 +8,7 @@ http://www.cprogramming.com/tutorial/3d/quaternions.html
 
 #include <math.h>
 #include <Double3.h>
+#include <WProgram.h>
 
 class Quaternion{
 private:
@@ -43,12 +44,21 @@ public:
     Double3 GetRightVector();
     Double3 operator *(Double3 v);
 
+    Double3* Rotate(Double3* v,unsigned int c);
+
+    void Print();
+
     static Quaternion Forward();
     static Quaternion Backward();
     static Quaternion Down();
     static Quaternion Up();
     static Quaternion Right();
     static Quaternion Left();
+
+
+    static Quaternion RotateX(double x);
+    static Quaternion RotateY(double y);
+    static Quaternion RotateZ(double z);
 
 
 
