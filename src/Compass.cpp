@@ -87,5 +87,8 @@ Double3 Compass::DirectionVector(){
     return directionVector;
 }
 
+Double3* Compass::MagneticNorthRef(){
+    return &directionVector;
+}
 
 

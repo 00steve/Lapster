@@ -18,6 +18,7 @@ Gyrometer Subsystem::gyrometer = Gyrometer();
 Timer Subsystem::timer = Timer();
 Eprom Subsystem::eeprom = Eprom();
 
+DeadReckon Subsystem::deadReckon = DeadReckon();
 
 bool Subsystem::Setup(){
     analogReadAveraging(32);
@@ -43,6 +44,15 @@ bool Subsystem::Setup(){
     AnalogInputs[0] = new AnalogInput(A0,DATA_LOG_EXPANSION1_MEM_BLOCK);
     AnalogInputs[0]->Setup();
 
+    //reference other input values for dead reckoning
+    deadReckon.LatitudeRef(&gps.latitude);
+    deadReckon.LongitudeRef(&gps.longitude);
+    deadReckon.AltitudeRef(&gps.altitude);
+    deadReckon.AccelerationRef(accelerometer.AccelerationRef());
+    deadReckon.MagneticNorthRef(Compass::MagneticNorthRef());
+
+    deadReckon.Calibrate();
+
     return true;
 }
 
@@ -50,14 +60,23 @@ bool Subsystem::Setup(){
 void Subsystem::Update(){
     timer.Update();
     if(timer.Tick()){
+        //user interface input update
         touch.Update();
-        gps.Update();
 
-        //Serial.println(gps.Position().X);
+        //motion update
+        gps.Update();
         compass.Update();
         accelerometer.Update();
         gyrometer.Update();
+
+        //analysis update
+
+        deadReckon.Update();
+
+        //custom input updates
         AnalogInputs[0]->Update();
+
+        //logging update
         if(logging){
             LogState();
         }

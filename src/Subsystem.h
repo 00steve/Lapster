@@ -37,13 +37,14 @@
 #include <SDCard.h>
 #include <DataStream.h>
 
-
+#include <DeadReckon.h>
 
 class Subsystem{
 private:
 
     static bool newAlert;
     static bool logging;
+
 
 
 public:
@@ -59,6 +60,7 @@ public:
     /*storage*/
     static Eprom eeprom;
     static SDCard sdCard;
+    static DeadReckon deadReckon;
 
     static bool Setup();
     static void Update();

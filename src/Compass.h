@@ -38,7 +38,7 @@ public:
 
     Double3 Raw();
     static Double3 DirectionVector();
-
+    static Double3* MagneticNorthRef();
 };
 
 #endif

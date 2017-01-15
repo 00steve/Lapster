@@ -35,6 +35,7 @@ public:
     double* XPtr();
     double* YPtr();
     double* ZPtr();
+    Double3* AccelerationRef();
 
 };
 
