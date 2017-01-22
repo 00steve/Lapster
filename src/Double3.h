@@ -30,6 +30,7 @@ public:
 
     Double3 operator /= (const double &other);
     Double3 operator / (const double &other);
+    Double3 operator * (const double &other);
 
 };
 

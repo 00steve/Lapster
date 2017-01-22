@@ -9,7 +9,7 @@ DeadReckon::DeadReckon(){
     //Serial.println(GreatCircleDistance(1.57,0,3.14,0));
 
     calibrating = false;
-
+    calibrated = false;
 }
 
 double DeadReckon::GeocentricRadius(double angle){
@@ -29,6 +29,7 @@ double DeadReckon::GreatCircleDistance(double xA,double yA,double xB,double yB){
 
 void DeadReckon::Calibrate(){
     calibrating = true;
+    calibrated = false;
     calibrationIterationsLeft = calibrationIterations;
     acc = new Double3[calibrationIterations];
     mag = new Double3[calibrationIterations];
@@ -46,10 +47,19 @@ void DeadReckon::Update(){
     currentLatitude = *latitudeRef * radm; //convert to radians
     currentLongitude = *longitudeRef * radm; //convert to radians
     currentAltitude = *altitudeRef;
+    magNorth = *magneticNorthRef;
 
     //get derived values
     geocentricRadius = GeocentricRadius(currentLatitude);
     currentTotalRadius = geocentricRadius + currentAltitude;
+
+    downVector = *accelerationRef;
+    downVector.Normalize();
+
+    if(calibrated){
+        //currentRotation = Quaternion(leftVector).GetDelta(Quaternion(magNorth,downVector*-1.0)) * Quaternion(downVector).GetConjugate();
+        currentRotation = Quaternion(downVector,Double3(magNorth.Y,magNorth.X,magNorth.Z));
+    }
 
     //get motion
 
@@ -103,7 +113,7 @@ void DeadReckon::Update(){
             Serial.print(backVector.Y);
             Serial.print(",");
             Serial.println(backVector.Z);
-
+            calibrated = true;
         }
     }//end of if calibrating
 
@@ -113,3 +123,9 @@ void DeadReckon::Update(){
     previousAltitude = currentAltitude;
     previousTotalRadius = currentTotalRadius;
 }
+
+
+
+
+Double3 DeadReckon::MagneticNorth(){ return *magneticNorthRef; }
+Quaternion DeadReckon::Rotation() { return currentRotation; }

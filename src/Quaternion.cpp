@@ -22,6 +22,64 @@ Quaternion::Quaternion(Double3 axis,double angle){
     Normalize();
 }
 
+Quaternion::Quaternion(Double3 direction,Double3 up){
+
+        direction.Normalize();
+        up.Normalize();
+
+        Double3 vector1 = direction;
+        Double3 vector2 = up ^ direction;
+        Double3 vector3 = vector1 ^ vector2;
+
+        double m00 = vector2.X;
+        double m01 = vector2.Y;
+        double m02 = vector2.Z;
+        double m10 = vector3.X;
+        double m11 = vector3.Y;
+        double m12 = vector3.Z;
+        double m20 = vector1.X;
+        double m21 = vector1.Y;
+        double m22 = vector1.Z;
+
+        double num8 = (m00 + m11) + m22;
+        if (num8 > 0.0)
+        {
+            double num = (double)sqrt(num8 + 1.0);
+            w = num * 0.5;
+            num = 0.5 / num;
+            x = (m12 - m21) * num;
+            y = (m20 - m02) * num;
+            z = (m01 - m10) * num;
+            return;
+        }
+        if ((m00 >= m11) && (m00 >= m22))
+        {
+            double num7 = (double)sqrt(((1.0 + m00) - m11) - m22);
+            double num4 = 0.5 / num7;
+            x = 0.5 * num7;
+            y = (m01 + m10) * num4;
+            z = (m02 + m20) * num4;
+            w = (m12 - m21) * num4;
+            return;
+        }
+        if (m11 > m22)
+        {
+            double num6 = (double)sqrt(((1.0 + m11) - m00) - m22);
+            double num3 = 0.5 / num6;
+            x = (m10 + m01) * num3;
+            y = 0.5 * num6;
+            z = (m21 + m12) * num3;
+            w = (m20 - m02) * num3;
+            return;
+        }
+        double num5 = (double)sqrt(((1.0 + m22) - m00) - m11);
+        double num2 = 0.5 / num5;
+        x = (m20 + m02) * num2;
+        y = (m21 + m12) * num2;
+        z = 0.5 * num5;
+        w = (m01 - m10) * num2;
+}
+
 
 void Quaternion::Normalize(){
     magnitude = Magnitude();

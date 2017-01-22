@@ -27,16 +27,22 @@ bool Subsystem::Setup(){
     Wire.begin();
 
     eeprom.Setup();
+
     timer.Setup();
     timer.TicksPerSecond(100);
     timer.DropTicks(true);
+
+
+    gps.Setup();
+
     screen.Setup();
     touch.Setup();
-    gps.Setup();
     //compass.Setup();
     gyrometer.Setup();
     accelerometer.Setup();
     compass.Setup();
+
+
 
     sdCard.Setup();
 

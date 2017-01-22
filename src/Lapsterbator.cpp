@@ -38,8 +38,8 @@ bool Lapsterbator::Setup(){
     }
 
     if(!current_process){
-        //current_process = new MainMenu();
-        current_process = new SubsystemSettings();
+        current_process = new MainMenu();
+        //current_process = new SubsystemSettings();
         //current_process->Redraw();
     }
 

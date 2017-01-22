@@ -20,13 +20,14 @@ private:
     double magnitude;
     bool oldMagnitude;
 
-    Quaternion(double x,double y,double z,double w);
-    Quaternion(Double3 offset);
 
 public:
 
     Quaternion();
+    Quaternion(double x,double y,double z,double w);
+    Quaternion(Double3 offset);
     Quaternion(Double3 axis,double angle);
+    Quaternion(Double3 direction,Double3 up);
 
     void Normalize();
     double Magnitude();
@@ -99,7 +100,7 @@ public:
         matrix[10]	= 1.0f - 2.0f * ( x * x + y * y );
         matrix[11]	= 0.0f;
         // Fourth row
-        matrix[12]	= 0;
+        matrix[12]	= 0;GetConjugate
         matrix[13]	= 0;
         matrix[14]	= 0;
         matrix[15]	= 1.0f;

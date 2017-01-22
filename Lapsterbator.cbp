@@ -55,6 +55,8 @@
 		<Unit filename="src/CompassSettings.h" />
 		<Unit filename="src/Confirm.cpp" />
 		<Unit filename="src/Confirm.h" />
+		<Unit filename="src/Cube.cpp" />
+		<Unit filename="src/Cube.h" />
 		<Unit filename="src/Dashboard.cpp" />
 		<Unit filename="src/Dashboard.h" />
 		<Unit filename="src/DashboardLayout.cpp" />
@@ -114,6 +116,8 @@
 		<Unit filename="src/Screen.h" />
 		<Unit filename="src/SettingsMenu.cpp" />
 		<Unit filename="src/SettingsMenu.h" />
+		<Unit filename="src/Shape.cpp" />
+		<Unit filename="src/Shape.h" />
 		<Unit filename="src/Slider.cpp" />
 		<Unit filename="src/Slider.h" />
 		<Unit filename="src/StorageMenu.cpp" />

@@ -25,8 +25,12 @@ private:
 
 public:
     Project3d();
+    Project3d(Int2 topLeft,Int2 drawSize);
+
     unsigned int Color(unsigned int color);
     unsigned int Color();
+
+    void Clear();
     void DrawLine(Double3 pointA,Double3 pointB);
 
     virtual void Draw();

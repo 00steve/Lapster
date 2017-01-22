@@ -6,12 +6,17 @@
 #include <Subsystem.h>
 #include <Project3d.h>
 #include <Quaternion.h>
+#include <Cube.h>
 
-class SubsystemSettings : public Mode{
+class SubsystemSettings : public Mode, Subsystem{
 private:
     Project3d projection;
+    Project3d projection2;
+    Project3d projection3;
+    Project3d projection4;
 
     Quaternion t;
+    Cube c;
 
     void Setup();
 

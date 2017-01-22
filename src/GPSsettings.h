@@ -203,7 +203,7 @@ public:
         tft.setCursor(10,250);
         tft.print("Altitude (feet) :");
 
-    \
+
 
 
 

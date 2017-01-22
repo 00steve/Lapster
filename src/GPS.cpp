@@ -106,7 +106,7 @@ void GPS::startSerial(const uint16_t baud) {
 
 
     setSentencesToReceive(OUTPUT_RMC_GGA);
-    delay(10);
+    delay(1000);
     if (runTimer) {
         //Serial.println("timer is true");
       delay(500);
@@ -268,7 +268,7 @@ uint8_t GPS::parse(const char* nmea, const uint32_t now)
 {
 
   //Serial.print("P: ");
-  //Serial.println(nmea);
+    Serial.println(nmea);
     if (*nmea != '$') {
         return PARSED_ERROR;
     }
@@ -349,10 +349,10 @@ String GPS::StatusString(){
 }
 void GPS::Update(){
         //Serial.println("gPS:update");
-        if (sentenceAvailable()) {
+        //if (sentenceAvailable()) {
                 //Serial.println("sentence available");
                 parseSentence();
-        }
+        //}
         if (newValuesSinceDataRead()) {
             dataRead();
             newData = true;

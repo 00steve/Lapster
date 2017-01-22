@@ -17,6 +17,7 @@ private:
     const int calibrationIterations = 128;
     int calibrationIterationsLeft;
     bool calibrating;
+    bool calibrated;
     Double3* acc;
     Double3* mag;
 
@@ -43,6 +44,7 @@ private:
     double currentAltitude;
     double previousAltitude;
 
+    Double3 magNorth;
 
     Double3 currentPosition = Double3(0,0,0);
 
@@ -84,7 +86,8 @@ public:
     void Update();
 
 
-
+    Double3 MagneticNorth();
+    Quaternion Rotation();
 };
 
 

@@ -34,3 +34,6 @@ Double3 Double3::operator /= (const double &other){
 Double3 Double3::operator / (const double &other){
     return Double3(X/other,Y/other,Z/other);
 }
+Double3 Double3::operator * (const double &other){
+    return Double3(X*other,Y*other,Z*other);
+}
