@@ -85,6 +85,7 @@ public:
     virtual char* GetData();
     virtual unsigned char ColumnCount();
     virtual unsigned char ColumnSize(unsigned char index);
+    virtual void Print();
     virtual String ColumnLabel(unsigned char index);
 
 

@@ -324,6 +324,7 @@ uint8_t GPS::parseSentence(void)
 {
     uint8_t retVal = PARSED_NONE;
     if (sentenceAvailable()) {
+            Serial.println("sentence available");
       retVal = parse(bufferComplete, millis());
       bufferComplete = 0;
     }
@@ -342,8 +343,7 @@ void GPS::Setup(){
     need to wait 1s anyway, might as well get two things going while
     waiting for this shit.*/
     //startSerial(57600);
-    gpsSwSerial->begin(57600);
-    //this->startSerial(57600);
+    this->startSerial(57600);
     setSentencesToReceive(OUTPUT_RMC_GGA);
     Serial.println("Setup GPS");
 }
@@ -389,13 +389,16 @@ char* GPS::GetData(){
 };
 
 bool GPS::NewDataAvailable(){
-
-
-    return true;
+    Update();
+    return newData;
 };
 
 unsigned char GPS::NewDataByteSize(){
     return 0;
 };
 
-
+void GPS::Print(){
+    Serial.print("satellites: ");
+    Serial.print(satellites);
+    Serial.print("\n");
+};

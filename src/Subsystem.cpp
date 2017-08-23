@@ -64,11 +64,10 @@ void SubSystem::Update(){
     data->Clear();
     byte newSensorData;
     int i=0;
-    Serial.print("input ->");
+    //Serial.print("input ->");
     while(i<sensorCount){
         eeprom.SetBit(newSensorData,(i%8),sensors[i]->NewDataAvailable());
-        Serial.print(sensors[i]->NewDataAvailable());
-        Serial.print(":");
+        //Serial.print(sensors[i]->NewDataAvailable() ? "1:" : "0:");
         if(++i%8 == 0){
             //data += newSensorData;
         }
@@ -78,9 +77,11 @@ void SubSystem::Update(){
     while(i<sensorCount){
         if(eeprom.GetBit((unsigned char)(*data)[i/8],i%8)){
         }
-        Serial.print(eeprom.GetBit((unsigned char)(*data)[i/8],i%8) ? "1:" : "0:");
+        //Serial.print(eeprom.GetBit((unsigned char)(*data)[i/8],i%8) ? "1:" : "0:");
         ++i;
     }
-    Serial.print("\n");
+    //Serial.print("\n");
+
+    sensors[1]->Print();
 
 };
