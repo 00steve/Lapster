@@ -1,19 +1,22 @@
-#ifndef DATA_STREAM_H
-#define DATA_STREAM_H
+#ifndef DATASTREAM_H
+#define DATASTREAM_H
+#include <WString.h>
 
-#include <Input.h>
 
-struct DataStream{
+class DataStream{
+private:
+    char *buffer;
+    unsigned int cursor;
+
 public:
+    DataStream(unsigned int bufferSize);
+    void Clear();
 
-    double* value;
-    double* mapMin;
-    double* mapMax;
-    double* warnMin;
-    double* warnMax;
+    char& operator[](unsigned int index);
+    DataStream& operator+=(const char value);
 
-    Input* input;
 
 };
 
-#endif // DATA_STREAM_H
+
+#endif // DATASTREAM_H

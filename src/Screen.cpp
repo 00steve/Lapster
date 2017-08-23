@@ -7,11 +7,11 @@ bool Screen::Setup(){
 
     // Use hardware SPI (#13, #12, #11) and the above for CS/DC
     tft.begin();
-    tft.setRotation( 1 );
+    tft.setRotation( 3);
     tft.fillScreen(ILI9341_BLACK);
 
-     tft.setFont(AwesomeF000_40);
-     tft.setCursor(86,170);
+    tft.setFont(AwesomeF000_40);
+    tft.setCursor(86,170);
     tft.print(SYM_LAP);
     tft.print(SYM_TIME);
     tft.print(SYM_WARN);

@@ -5,6 +5,7 @@
     //this should only be called if the settings are being reset
     //or there are no settings yet saved to the Eprom
 void Eprom::PopulateDefaults(){
+    /*
     int cursor = ACCELEROMETER_X_MIN_SHORT;
     WriteShort(cursor,395);
     cursor = ACCELEROMETER_X_MAX_SHORT;
@@ -40,7 +41,7 @@ void Eprom::PopulateDefaults(){
     cursor = DATA_LOG_EXPANSION_SHORT;
     WriteShort(cursor,0);
     WriteShort(cursor,0);
-
+    */
 
 }
 
@@ -150,7 +151,7 @@ char Eprom::ReadChar(int &address){
     return EEPROM.read(address++);
 }
 double Eprom::ReadDouble(int &address){
-    char b[4];
+    char b[8];
     b[0] = EEPROM.read(address++);
     b[1] = EEPROM.read(address++);
     b[2] = EEPROM.read(address++);
