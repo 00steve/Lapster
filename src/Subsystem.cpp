@@ -37,6 +37,10 @@ void SubSystem::Setup(){
     sensors[0] = new Accelerometer();
     sensors[1] = new GPS(&gpsSerial,true);
 
+    for(int i=0;i<sensorCount;i++){
+        sensors[i]->Setup();
+    }
+
     /*setup the data writers*/
     writers = new DataWriter*[dataWriterCount];
     writers[0] = new USBRaw();

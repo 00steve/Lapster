@@ -23,5 +23,7 @@ public:
 
     virtual unsigned char NewDataByteSize() = 0;
 
+    virtual void Setup();
+
 };
 #endif // SENSOR_H

@@ -341,7 +341,8 @@ void GPS::Setup(){
     /*call gps start serial before the 1000 ms delay, because it will
     need to wait 1s anyway, might as well get two things going while
     waiting for this shit.*/
-    startSerial(57600);
+    //startSerial(57600);
+    gpsSwSerial->begin(57600);
     //this->startSerial(57600);
     setSentencesToReceive(OUTPUT_RMC_GGA);
     Serial.println("Setup GPS");
